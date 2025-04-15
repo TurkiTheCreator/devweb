@@ -1,0 +1,26 @@
+CREATE TABLE utilisateurs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(100) NOT NULL,
+  prenom VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  mot_de_passe VARCHAR(255) NOT NULL,
+  date_inscription DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE annonces (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  utilisateur_id INT NOT NULL,
+  titre VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  prix DECIMAL(10,2) NOT NULL,
+  image VARCHAR(255),
+  date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+);
+CREATE TABLE images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    annonce_id INT NOT NULL,
+    chemin VARCHAR(255) NOT NULL,
+    date_ajout DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (annonce_id) REFERENCES annonces(id) ON DELETE CASCADE
+);
